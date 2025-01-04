@@ -58,19 +58,14 @@ class CustomTokenRefreshView(TokenRefreshView):
     
 
 class ProductoBusquedaAvanzadaView(APIView):
-    """
-    Vista personalizada para búsqueda avanzada de productos.
-    """
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        # Obtener parámetros de filtro
         nombre = request.query_params.get('nombre', None)
         categoria = request.query_params.get('categoria', None)
         precio_min = request.query_params.get('precio_min', None)
         precio_max = request.query_params.get('precio_max', None)
 
-        # Filtros dinámicos
         filtros = Q()
         if nombre:
             filtros &= Q(nombre__icontains=nombre)
@@ -81,7 +76,6 @@ class ProductoBusquedaAvanzadaView(APIView):
         if precio_max:
             filtros &= Q(precio__lte=precio_max)
 
-        # Filtrar productos
         productos = Producto.objects.filter(filtros)
         serializer = ProductoSerializer(productos, many=True)
         return Response(serializer.data)
