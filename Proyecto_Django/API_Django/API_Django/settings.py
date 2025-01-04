@@ -16,11 +16,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 #It can change later
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    # Agregar los dominios permitidos
-]
+CORS_ALLOWED_ALL_ORIGINS = True 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -31,7 +27,7 @@ SECRET_KEY = 'django-insecure-#p^89m4&mcojg18*k0wouffefun+ssjvy9xcrwyvz3z3g4p#1)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '192.168.0.249', '127.0.0.1']
 
 # Model User
 AUTH_USER_MODEL = 'usuarios.Usuario'
@@ -49,6 +45,7 @@ INSTALLED_APPS = [
     'corsheaders', # Include the app in the project
     'rest_framework', # Include the app in the project
     'my_api', # Include the app in the project
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 MIDDLEWARE = [
@@ -89,10 +86,15 @@ WSGI_APPLICATION = 'API_Django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Inventario',  # Nombre de tu base de datos
+        'USER': 'postgres',           # Usuario de PostgreSQL
+        'PASSWORD': 'admin123',    # Contraseña del usuario
+        'HOST': 'localhost',         # Dirección del servidor
+        'PORT': '5432',              # Puerto de PostgreSQL
     }
 }
+
 
 
 # Password validation
@@ -127,7 +129,7 @@ from datetime import timedelta
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
+    'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY,
@@ -146,7 +148,7 @@ SIMPLE_JWT = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
 
