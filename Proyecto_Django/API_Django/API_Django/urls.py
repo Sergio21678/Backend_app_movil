@@ -17,4 +17,7 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
     path('api/productos/busqueda/', ProductoBusquedaAvanzadaView.as_view(), name='producto_busqueda_avanzada'),
+    path('api/products/<int:pk>/', views.ProductoDetailView.as_view(), name='producto_detail'),
+    path('api/movimientos/busqueda/', views.MovimientoBusquedaView.as_view(), name='movimiento_busqueda'),
+
 ]

@@ -11,6 +11,11 @@ class ProductoSerializer(serializers.ModelSerializer):
 
 
 class MovimientoSerializer(serializers.ModelSerializer):
+    producto_nombre = serializers.CharField(source='producto.nombre', read_only=True)
+
     class Meta:
         model = Movimiento
-        fields = '__all__' 
+        fields = ['id', 'producto', 'producto_nombre', 'tipo', 'cantidad', 'fecha']
+        extra_kwargs = {
+            'producto': {'required': True},  # Es obligatorio
+        }
