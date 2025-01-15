@@ -1,14 +1,14 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.exceptions import PermissionDenied
-from .models import Producto, Movimiento
-from .serializers import ProductoSerializer, MovimientoSerializer
+from .models import Producto, Movimiento, Categoria
+from .serializers import ProductoSerializer, MovimientoSerializer, CategoriaSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenRefreshView
 import logging
 from django.db.models import Q
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, ListAPIView
 
 logger = logging.getLogger(__name__)
 
@@ -136,3 +136,19 @@ class MovimientoBusquedaView(APIView):
         movimientos = Movimiento.objects.filter(filtros)
         serializer = MovimientoSerializer(movimientos, many=True)
         return Response(serializer.data)
+
+class ProductoPorCodigoView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, codigo):
+        try:
+            producto = Producto.objects.get(codigo=codigo)
+            serializer = ProductoSerializer(producto)
+            return Response(serializer.data)
+        except Producto.DoesNotExist:
+            return Response({'error': 'Producto no encontrado'}, status=404)
+
+
+class CategoriaListView(ListAPIView):
+    queryset = Categoria.objects.all()
+    serializer_class = CategoriaSerializer
