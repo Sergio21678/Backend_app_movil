@@ -18,6 +18,6 @@ urlpatterns = [
     path('api/productos/busqueda/', ProductoBusquedaAvanzadaView.as_view(), name='producto_busqueda_avanzada'),
     path('api/products/<int:pk>/', views.ProductoDetailView.as_view(), name='producto_detail'),
     path('api/movimientos/busqueda/', views.MovimientoBusquedaView.as_view(), name='movimiento_busqueda'),
-    path('api/productos/codigo/<str:codigo>/', ProductoPorCodigoView.as_view(), name='producto_por_codigo'),
+    path('api/productos/codigo/<path:codigo>/', ProductoPorCodigoView.as_view(), name='producto_por_codigo'),
     path('api/categorias/', CategoriaListView.as_view(), name='categoria_list'),
 ]
