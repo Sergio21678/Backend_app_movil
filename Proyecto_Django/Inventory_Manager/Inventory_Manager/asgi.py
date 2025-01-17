@@ -1,5 +1,5 @@
 """
-ASGI config for  Inventory_Manager project.
+ASGI config for Inventory_Manager project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

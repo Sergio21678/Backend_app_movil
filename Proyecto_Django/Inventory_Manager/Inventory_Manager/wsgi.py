@@ -1,5 +1,5 @@
 """
-WSGI config for  Inventory_Manager project.
+WSGI config for Inventory_Manager project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
