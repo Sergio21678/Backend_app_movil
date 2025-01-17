@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Producto, Movimiento, Categoria
 
+
+# Serializador para productos
 class ProductoSerializer(serializers.ModelSerializer):
     categoria_nombre = serializers.CharField(source='categoria.nombre', read_only=True)
 
@@ -9,7 +11,7 @@ class ProductoSerializer(serializers.ModelSerializer):
         fields = ['id', 'nombre', 'descripcion', 'codigo', 'stock', 'precio', 'categoria', 'categoria_nombre', 'fecha_creacion']
 
 
-
+# Serializador para movimientos
 class MovimientoSerializer(serializers.ModelSerializer):
     producto_nombre = serializers.CharField(source='producto.nombre', read_only=True)
 
@@ -20,6 +22,7 @@ class MovimientoSerializer(serializers.ModelSerializer):
             'producto': {'required': True},  # Es obligatorio
         }
 
+# Serializador para categorías
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
