@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from my_api import views
+from Inventory_Manager import views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
